@@ -23,8 +23,8 @@
             </intent-filter>
         </activity>
         <activity
-            android:name="com.nagarjuna_pamu.mess.SettingsPreferencesActivity"
-            android:label="@string/title_activity_settings_preferences" >
+            android:name="com.nagarjuna_pamu.mess.SettingsActivity"
+            android:label="@string/title_activity_settings" >
         </activity>
     </application>
 
