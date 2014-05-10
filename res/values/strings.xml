@@ -9,5 +9,8 @@
     <string name="title_activity_settings_preferences">Settings</string>
     <string name="hello_world">Hello world!</string>
     <string name="title_activity_settings">Settings</string>
+    <string name="submit">Submit</string>
+    <string name="sign">I accept the terms and conditions</string>
+    <string name="comment">comment</string>
 
 </resources>
