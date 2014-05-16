@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android" >
+    <EditTextPreference android:defaultValue="http://students.iitmandi.ac.in:9000/" android:title="Connect" android:negativeButtonText="cancel" android:dialogMessage="Give Mess Webservice Url (App will not work with out this)" android:enabled="true" android:dialogTitle="Connect" android:positiveButtonText="connect" android:selectable="true" android:summary="ensure its connected"/>
+    <CheckBoxPreference android:title="Notify final poll results" android:disableDependentsState="true" android:summary="Final poll results of the day" android:enabled="true" android:selectable="true" /><CheckBoxPreference android:summary="May be annoying" android:enabled="true" android:title="Real time notifications" android:disableDependentsState="true" android:selectable="true"/>
+    <CheckBoxPreference android:summary="Enable other important Alerts" android:title="Other Important Alerts" android:disableDependentsState="true" android:enabled="true" android:selectable="true"/>
+    
+</PreferenceScreen>

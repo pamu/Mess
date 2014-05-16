@@ -4,11 +4,15 @@
     android:versionCode="1"
     android:versionName="1.0" >
 
+    <uses-permission android:name="android.permission.READ_PHONE_STATE" />
+    <uses-permission android:name="android.permission.INTERNET"/>
+
     <uses-sdk
         android:minSdkVersion="8"
         android:targetSdkVersion="19" />
 
     <application
+        android:name="com.nagarjuna_pamu.mess.Mess"
         android:allowBackup="true"
         android:icon="@drawable/ic_launcher"
         android:label="@string/app_name"
@@ -26,6 +30,20 @@
             android:name="com.nagarjuna_pamu.mess.SettingsActivity"
             android:label="@string/title_activity_settings" >
         </activity>
+
+        <service
+            android:name="com.nagarjuna_pamu.mess.SocketService"
+            android:enabled="true"
+            android:exported="true" >
+        </service>
+
+        <activity
+            android:name="com.nagarjuna_pamu.mess.SigninActivity"
+            android:label="@string/title_activity_signin" >
+        </activity>
+
     </application>
+
+    <uses-permission android:name="android.permission.VIBRATE" />
 
 </manifest>

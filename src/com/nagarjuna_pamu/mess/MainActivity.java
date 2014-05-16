@@ -1,7 +1,8 @@
 package com.nagarjuna_pamu.mess;
 
 import java.util.Locale;
-
+import org.json.JSONException;
+import org.json.JSONObject;
 import android.support.v7.app.ActionBarActivity;
 import android.support.v7.app.ActionBar;
 import android.support.v4.app.Fragment;
@@ -17,10 +18,15 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.EditText;
+import android.widget.RatingBar;
 import android.widget.TextView;
+import android.widget.Toast;
+import android.provider.Settings.Secure;
 
 public class MainActivity extends ActionBarActivity {
-
+	
     /**
      * The {@link android.support.v4.view.PagerAdapter} that will provide
      * fragments for each of the sections. We use a
@@ -35,13 +41,11 @@ public class MainActivity extends ActionBarActivity {
      * The {@link ViewPager} that will host the section contents.
      */
     ViewPager mViewPager;
-
+    
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
-
-
+        setContentView(R.layout.activity_main);  
 
         // Create the adapter that will return a fragment for each of the three
         // primary sections of the activity.
@@ -96,8 +100,8 @@ public class MainActivity extends ActionBarActivity {
 
         @Override
         public int getCount() {
-            // Show 3 total pages.
-            return 3;
+            // Show 4 total pages.
+            return 4;
         }
 
         @Override
@@ -119,6 +123,7 @@ public class MainActivity extends ActionBarActivity {
      * A placeholder fragment containing a simple view.
      */
     public static class PlaceholderFragment extends Fragment {
+    	
         /**
          * The fragment argument representing the section number for this
          * fragment.
@@ -138,14 +143,92 @@ public class MainActivity extends ActionBarActivity {
         }
 
         public PlaceholderFragment() {
+        	 
         }
 
         @Override
         public View onCreateView(LayoutInflater inflater, ViewGroup container,
                 Bundle savedInstanceState) {
             View rootView = inflater.inflate(R.layout.fragment_main, container, false);
-            TextView textView = (TextView) rootView.findViewById(R.id.section_label);
-            textView.setText(Integer.toString(getArguments().getInt(ARG_SECTION_NUMBER)));
+            /**
+             * 
+             */
+            TextView textView = (TextView) rootView.findViewById(R.id.text);
+            
+            /**
+             * 
+             */
+            final RatingBar ratingBar = (RatingBar) rootView.findViewById(R.id.ratingBar);
+            /**
+             * 
+             */
+            TextView commentView = (TextView) rootView.findViewById(R.id.comment);
+            /**
+             * 
+             */
+            final EditText editText = (EditText) rootView.findViewById(R.id.editText);
+            /**
+             * 
+             */
+            Button submit = (Button) rootView.findViewById(R.id.submit);
+            
+            
+            
+            ratingBar.setOnRatingBarChangeListener(new RatingBar.OnRatingBarChangeListener() {
+				
+				@Override
+				public void onRatingChanged(RatingBar arg0, float  arg1, boolean arg2) {
+					// TODO Auto-generated method stub
+					String ratingText = null;
+					int rating = (int)arg1;
+					if(rating == 1) {
+						ratingText = "very poor";
+					} else if(rating == 2) {
+						ratingText = "poor";
+					} else if(rating == 3) {
+						ratingText = "average";
+					} else if(rating == 4) {
+						ratingText = "above average";
+					} else if(rating == 5) {
+						ratingText = "excellent";
+					}
+					Toast.makeText(getActivity(), ratingText, 500).show();
+				}
+			});
+            
+            submit.setOnClickListener(new View.OnClickListener() {
+				
+				@Override
+				public void onClick(View arg0) {
+					// TODO Auto-generated method stub
+					JSONObject json = new JSONObject();
+					int section = getArguments().getInt(ARG_SECTION_NUMBER);
+					try {
+						String secureId = Secure.getString(getActivity().getApplication().getContentResolver(),Secure.ANDROID_ID);
+						json.put("secureId", secureId);
+						json.put("section", section);
+						json.put("rating", (int)ratingBar.getRating());
+						json.put("comment", editText.getText().toString());
+					} catch (JSONException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
+					Toast.makeText(getActivity(), json.toString(), Toast.LENGTH_LONG).show();
+				}
+			});
+            
+            int section = getArguments().getInt(ARG_SECTION_NUMBER);
+            
+            if(section == 1) {
+            	textView.setText("Breakfast");
+            }else if(section == 2) {
+            	textView.setText("Lunch");
+            }else if(section == 3) {
+            	textView.setText("Snacks");
+            }else {
+            	textView.setText("Dinner");
+            }
+            
             return rootView;
         }
     }

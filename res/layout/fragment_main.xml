@@ -1,127 +1,54 @@
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.nagarjuna_pamu.mess.MainActivity$PlaceholderFragment" >
+    android:background="@drawable/abc_ab_bottom_solid_dark_holo"
+    android:gravity="fill"
+    android:orientation="vertical" >
 
-    <LinearLayout
-        android:layout_width="match_parent"
+    <TextView
+        android:id="@+id/text"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:text="@string/breakfast"
+        android:layout_gravity="top|center"
+        android:textColor="#aabbcc"
+        android:textAlignment="inherit"
+        android:textSize="130dp" />
+    <RatingBar
+        android:id="@+id/ratingBar"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:numStars="5"
+        android:rating = "1"
+        android:stepSize="1.0" />
+    
+	<TextView
+	    android:id="@+id/comment"
+	    android:layout_width="wrap_content"
+	    android:layout_height="wrap_content"
+	    android:layout_gravity="center"
+	    android:textColor="#ffffff"
+	    android:textSize="20dp"
+	    android:text="@string/comment"
+	    />
+	
+    <EditText
+        android:id="@+id/editText"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"  
+        android:ems="10"
         android:gravity="center"
-        android:orientation="vertical" >
-
-        <TextView
-            android:id="@+id/section_label"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:gravity="fill"
-            android:textColor="#000000" />
-
-        <TextView
-            android:id="@+id/textView3"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:gravity="fill"
-            android:text="TextView" />
-    </LinearLayout>
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical" >
-
-        <TextView
-            android:id="@+id/commentTextView"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:layout_marginBottom="22dp"
-            android:text="@string/comment" />
-
-        <ScrollView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center" >
-        </ScrollView>
-    </LinearLayout>
+        android:textColor="#ffffff"
+        android:inputType="textMultiLine" >
+    </EditText>
 
     <Button
         android:id="@+id/submit"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:layout_alignParentLeft="true"
-        android:layout_marginBottom="55dp"
-        android:layout_marginLeft="238dp"
-        android:text="@string/submit" />
+        android:layout_gravity="center"
+        android:text="@string/submit"
+        android:textColor="#ffffff" />
 
-    <EditText
-        android:id="@+id/commentEditText"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_above="@+id/submit"
-        android:layout_alignParentLeft="true"
-        android:layout_marginBottom="90dp"
-        android:ems="10"
-        android:gravity="center"
-        android:inputType="textMultiLine" >
-
-        <requestFocus />
-    </EditText>
-
-    <RatingBar
-        android:id="@+id/ratingBar"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_alignParentLeft="true"
-        android:layout_below="@+id/linearLayout1"
-        android:layout_marginTop="228dp" />
-
-    <TextView
-        android:id="@+id/textView1"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_alignParentLeft="true"
-        android:layout_below="@+id/linearLayout1"
-        android:layout_marginTop="66dp"
-        android:gravity="center"
-        android:text="Large Text"
-        android:textAppearance="?android:attr/textAppearanceLarge" />
-
-    <LinearLayout
-        android:id="@+id/linearLayout2"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_above="@+id/commentEditText"
-        android:layout_alignParentLeft="true"
-        android:layout_marginBottom="29dp"
-        android:orientation="vertical" >
-
-        <CheckBox
-            android:id="@+id/sign"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/sign" />
-    </LinearLayout>
-
-    <LinearLayout
-        android:id="@+id/linearLayout1"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_above="@+id/linearLayout2"
-        android:layout_alignParentLeft="true"
-        android:layout_marginBottom="74dp"
-        android:gravity="center"
-        android:orientation="vertical" >
-
-        <CheckBox
-            android:id="@+id/checkBox1"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="16dp"
-            android:gravity="center"
-            android:text="CheckBox" />
-    </LinearLayout>
-y
-
-</RelativeLayout>
+</LinearLayout>
