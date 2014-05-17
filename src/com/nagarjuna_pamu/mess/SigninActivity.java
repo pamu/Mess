@@ -3,6 +3,9 @@ package com.nagarjuna_pamu.mess;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import android.content.Context;
+import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.provider.Settings.Secure;
 import android.support.v4.app.Fragment;
@@ -116,6 +119,19 @@ public class SigninActivity extends ActionBarActivity {
 								public void onTextMessage(String payload) {
 									// TODO Auto-generated method stub
 									super.onTextMessage(payload);
+									try {
+										JSONObject json = new JSONObject(payload);
+										int status = json.getInt("status");
+										if(status == 1) {
+											SharedPreferences prefs = getActivity().getApplicationContext().getSharedPreferences("mess", Context.MODE_PRIVATE);
+											prefs.edit().putInt("count", 1).apply();;
+											startActivity(new Intent(getActivity(), MainActivity.class));
+										}
+									} catch (JSONException e) {
+										// TODO Auto-generated catch block
+										e.printStackTrace();
+									}
+									
 									Toast.makeText(getActivity(), payload, Toast.LENGTH_SHORT).show();
 								}
 								

@@ -1,8 +1,13 @@
 package com.nagarjuna_pamu.mess;
 
 import java.util.Locale;
+
 import org.json.JSONException;
 import org.json.JSONObject;
+
+import de.tavendo.autobahn.WebSocketConnection;
+import de.tavendo.autobahn.WebSocketConnectionHandler;
+import de.tavendo.autobahn.WebSocketException;
 import android.support.v7.app.ActionBarActivity;
 import android.support.v7.app.ActionBar;
 import android.support.v4.app.Fragment;
@@ -201,7 +206,7 @@ public class MainActivity extends ActionBarActivity {
 				@Override
 				public void onClick(View arg0) {
 					// TODO Auto-generated method stub
-					JSONObject json = new JSONObject();
+					final JSONObject json = new JSONObject();
 					int section = getArguments().getInt(ARG_SECTION_NUMBER);
 					try {
 						String secureId = Secure.getString(getActivity().getApplication().getContentResolver(),Secure.ANDROID_ID);
@@ -213,7 +218,65 @@ public class MainActivity extends ActionBarActivity {
 						// TODO Auto-generated catch block
 						e.printStackTrace();
 					}
+					final WebSocketConnection mConnection = new WebSocketConnection();
+					try {
+						mConnection.connect("ws://10.8.2.44:9000/rate", new WebSocketConnectionHandler(){
+
+							@Override
+							public void onClose(int code, final String reason) {
+								// TODO Auto-generated method stub
+								super.onClose(code, reason);
+								getActivity().runOnUiThread(new Runnable(){
+									public void run() {
+										Toast.makeText(getActivity(), " Can't proceed due to connection problem. Try Again !!!", Toast.LENGTH_LONG).show();
+									}
+								});
+							}
+
+							@Override
+							public void onOpen() {
+								// TODO Auto-generated method stub
+								super.onOpen();
+								mConnection.sendTextMessage(json.toString());
+							}
+
+							@Override
+							public void onTextMessage(String payload) {
+								// TODO Auto-generated method stub
+								super.onTextMessage(payload);
+								try {
+									JSONObject obj = new JSONObject(payload);
+									int status = obj.getInt("status");
+									if(status == 1) {
+										getActivity().runOnUiThread(new Runnable() {
+											public void run() {
+												Toast.makeText(getActivity(), "Thanks for Rating", Toast.LENGTH_LONG).show();
+											}
+										});
+									} else if(status == 0) {
+										getActivity().runOnUiThread(new Runnable() {
+											public void run() {
+												Toast.makeText(getActivity(), "You have already rated", Toast.LENGTH_LONG).show();
+											}
+										});
+									} else {
+										Toast.makeText(getActivity(), "WTF !!!(What a terrible Failure)", Toast.LENGTH_LONG).show();
+									}
+								} catch (JSONException e) {
+									// TODO Auto-generated catch block
+									e.printStackTrace();
+								}
+								
+							}
+							
+						});
+					} catch (WebSocketException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
+					
 					Toast.makeText(getActivity(), json.toString(), Toast.LENGTH_LONG).show();
+					
 				}
 			});
             
